@@ -17,5 +17,4 @@ const dumpSolution = (puzzle, solution) => {
 
 const puzzle = parsePuzzle(SAMPLE_PUZZLE)
 const solutions = solve(puzzle)
-console.dir(`Number of solutions: ${solutions.length}`)
 solutions.forEach(solution => dumpSolution(puzzle, solution))

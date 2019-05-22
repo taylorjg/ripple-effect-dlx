@@ -1,18 +1,11 @@
 require('@babel/polyfill')
-if (typeof exports !== 'undefined') {
-  // eslint-disable-next-line no-global-assign
-  window = undefined
-}
 const R = require('ramda')
 // const dlxlib = require('dlxlib')
 const dlxlib = require('../../dlxlibjs/lib')
 
-// export const solve = puzzle => {
 const solve = puzzle => {
   const rows = buildRows(puzzle.rooms)
   const matrix = buildMatrix(puzzle, rows)
-  console.dir(`Number of matrix rows: ${matrix.length}`)
-  console.dir(`Number of matrix columns: ${matrix[0].length}`)
   const numPrimaryColumns = 2 * puzzle.width * puzzle.height
   const solutions = dlxlib.solve(matrix, undefined, undefined, undefined, numPrimaryColumns)
   // const options = {
