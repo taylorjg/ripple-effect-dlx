@@ -1,19 +1,24 @@
-import * as R from 'ramda'
-// import * as dlxlib from 'dlxlib'
-// TEMPORARY: whilst updating dlxlibjs to support secondary columns and options
-import * as dlxlib from '../../dlxlibjs/lib'
+require('@babel/polyfill')
+if (typeof exports !== 'undefined') {
+  // eslint-disable-next-line no-global-assign
+  window = undefined
+}
+const R = require('ramda')
+// const dlxlib = require('dlxlib')
+const dlxlib = require('../../dlxlibjs/lib')
 
-export const solve = puzzle => {
+// export const solve = puzzle => {
+const solve = puzzle => {
   const rows = buildRows(puzzle.rooms)
   const matrix = buildMatrix(puzzle, rows)
   console.dir(`Number of matrix rows: ${matrix.length}`)
   console.dir(`Number of matrix columns: ${matrix[0].length}`)
   const numPrimaryColumns = 2 * puzzle.width * puzzle.height
+  const solutions = dlxlib.solve(matrix, undefined, undefined, undefined, numPrimaryColumns)
   // const options = {
   //   numPrimaryColumns
   // }
-  const solutions = dlxlib.solve(matrix, undefined, undefined, undefined, numPrimaryColumns)
-  console.dir(`Number of solutions: ${solutions.length}`)
+  // const solutions = dlxlib.solve(matrix, options)
   return solutions.map(resolveSolution(rows))
 }
 
@@ -104,8 +109,6 @@ const isCellInGrid = puzzle => cell =>
 const calculateRippleIndices = (puzzle, row, direction) => {
   const x = row.coords.x
   const y = row.coords.y
-  // Or maybe we don't need to include offset 0 ?
-  // R.range(0, row.value).map(R.inc)
   const offsets = R.range(0, row.value + 1)
   const rippleCells = offsets.map(offset => {
     switch (direction) {
@@ -122,3 +125,7 @@ const calculateRippleIndices = (puzzle, row, direction) => {
 
 const resolveSolution = rows => solution =>
   solution.map(rowIndex => rows[rowIndex])
+
+module.exports = {
+  solve
+}

@@ -12,7 +12,7 @@ module.exports = {
   mode: 'development',
   entry: [
     '@babel/polyfill',
-    './src/index.js'
+    './web/index.js'
   ],
   output: {
     path: distFolder,
@@ -20,11 +20,11 @@ module.exports = {
   },
   plugins: [
     new CopyWebpackPlugin([
-      { context: './src', from: '*.html' },
-      { context: './src', from: '*.css' }
+      { context: './web', from: '*.html' },
+      { context: './web', from: '*.css' }
     ]),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './web/index.html',
       version
     }),
     new WorkerPlugin()

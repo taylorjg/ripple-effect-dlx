@@ -1,6 +1,12 @@
-import * as R from 'ramda'
-import { parsePuzzle, SAMPLE_PUZZLE } from './parsePuzzle'
-import { solve } from './solve'
+/* eslint-env node */
+
+const R = require('ramda')
+const { parsePuzzle, SAMPLE_PUZZLE } = require('../common/parsePuzzle')
+const { solve } = require('../common/solve')
+
+// import * as R  from 'ramda'
+// import { solve } from '../common/solve'
+// import { parsePuzzle, SAMPLE_PUZZLE } from '../common/parsePuzzle'
 
 const dumpSolution = (puzzle, solution) => {
   const xs = R.range(0, puzzle.width)
@@ -17,4 +23,5 @@ const dumpSolution = (puzzle, solution) => {
 
 const puzzle = parsePuzzle(SAMPLE_PUZZLE)
 const solutions = solve(puzzle)
+console.dir(`Number of solutions: ${solutions.length}`)
 solutions.forEach(solution => dumpSolution(puzzle, solution))

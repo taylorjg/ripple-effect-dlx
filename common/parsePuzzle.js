@@ -1,6 +1,6 @@
-import * as R from 'ramda'
+const R = require('ramda')
 
-export const SAMPLE_PUZZLE = [
+const SAMPLE_PUZZLE = [
   'A:- B:- C:- C:3 C:- D:- D:- D:-',
   'E:- B:- F:- G:- H:- H:- D:- I:-',
   'E:- E:- F:- G:- G:- J:- J:2 K:-',
@@ -11,7 +11,7 @@ export const SAMPLE_PUZZLE = [
   'V:- V:- T:- T:- T:2 U:- U:- U:-'
 ]
 
-export const parsePuzzle = lines => {
+const parsePuzzle = lines => {
   const splitLines = lines.map(line => line.split(/\s/).map(s => s.trim()))
   const width = splitLines[0].length
   const height = splitLines.length
@@ -40,4 +40,9 @@ export const parsePuzzle = lines => {
     height,
     rooms
   }
+}
+
+module.exports = {
+  parsePuzzle,
+  SAMPLE_PUZZLE
 }
