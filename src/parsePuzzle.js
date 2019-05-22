@@ -35,5 +35,9 @@ export const parsePuzzle = lines => {
       initialValue: cell.initialValue
     }))
   }))
-  console.dir(rooms)
+  return {
+    width,
+    height,
+    rooms
+  }
 }
