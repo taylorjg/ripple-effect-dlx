@@ -1,7 +1,7 @@
 /* eslint-env node */
 
 const R = require('ramda')
-const { parsePuzzle, SAMPLE_PUZZLE } = require('../common/parsePuzzle')
+const { parsePuzzle, SAMPLE_PUZZLE_10x10 } = require('../common/parsePuzzle')
 const { solve } = require('../common/solve')
 
 const findCell = (solution, x, y) =>
@@ -178,6 +178,6 @@ const SIDES_TABLE = {
   'vb': 0x2503
 }
 
-const puzzle = parsePuzzle(SAMPLE_PUZZLE)
+const puzzle = parsePuzzle(SAMPLE_PUZZLE_10x10)
 const solutions = solve(puzzle)
 solutions.forEach(solution => dumpSolution(puzzle, solution))

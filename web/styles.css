@@ -7,32 +7,25 @@
   font-style: italic;
 }
 
-.board-wrapper {
+.grid-wrapper {
   margin-bottom: 20px;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-.board {
+.grid {
+  background-color: aliceblue;
   width: 25%;
 }
 
+.grid-line {
+  stroke: black;
+  stroke-width: 1;
+}
+
 @media (max-width: 768px) {
-  .board {
+  .grid {
     width: 100%;
   }
-}
-
-.piece {
-  stroke: black;
-  stroke-width: 1;
-  stroke-linejoin: round;
-}
-
-.unfilled-boundary {
-  stroke: black;
-  stroke-width: 1;
-  stroke-linejoin: round;
-  fill: none;
 }

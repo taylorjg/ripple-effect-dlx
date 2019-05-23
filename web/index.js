@@ -1,8 +1,10 @@
 import * as R from 'ramda'
-import { parsePuzzle, SAMPLE_PUZZLE } from '../common/parsePuzzle'
+import { parsePuzzle, SAMPLE_PUZZLE_8x8, SAMPLE_PUZZLE_10x10 } from '../common/parsePuzzle'
 import { solve } from '../common/solve'
+import { drawSolution as drawSolutionSvg } from './svg'
 
-const dumpSolution = (puzzle, solution) => {
+// TODO: move drawSolution in console/index.js to common area and use that
+const drawSolutionConsole = (puzzle, solution) => {
   const xs = R.range(0, puzzle.width)
   const ys = R.range(0, puzzle.height)
   for (const y of ys) {
@@ -15,6 +17,12 @@ const dumpSolution = (puzzle, solution) => {
   }
 }
 
-const puzzle = parsePuzzle(SAMPLE_PUZZLE)
-const solutions = solve(puzzle)
-solutions.forEach(solution => dumpSolution(puzzle, solution))
+const solveButton = document.getElementById('solve')
+solveButton.addEventListener('click', () => {
+  const puzzle = parsePuzzle(SAMPLE_PUZZLE_10x10)
+  const solutions = solve(puzzle)
+  solutions.forEach(solution => {
+    drawSolutionConsole(puzzle, solution)
+    drawSolutionSvg(puzzle, solution)
+  })
+})
