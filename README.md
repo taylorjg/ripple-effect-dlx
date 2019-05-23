@@ -2,6 +2,11 @@
 
 This repo contains code to solve Ripple Effect puzzles using Donald E. Knuth's DLX.
 
+# TODO
+
+* Add support for secondary columns to [dlxlib](https://github.com/taylorjg/dlxlibjs)
+  * _(I can't believe I didn't include this at the time)_
+
 # Links
 
 * http://www.nikoli.co.jp/en/puzzles/ripple_effect.html
