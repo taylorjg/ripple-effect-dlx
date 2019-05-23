@@ -1,7 +1,7 @@
 {
   "name": "ripple-effect-dlx",
   "version": "0.0.0",
-  "description": "Solve ripple effect puzzles using DlxLib",
+  "description": "Web app to solve ripple effect puzzles using dlxlib",
   "scripts": {
     "build": "webpack",
     "start": "node server",
