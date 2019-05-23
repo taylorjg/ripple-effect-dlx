@@ -100,6 +100,10 @@ const lookupSideBoxChar = (solution, x, y, side) => {
   }
 }
 
+const ESC = '\x1b'
+const YELLOW = `${ESC}[33m`
+const RESET = `${ESC}[0m`
+
 const dumpSolution = (puzzle, solution) => {
 
   const xs = R.range(0, puzzle.width)
@@ -117,7 +121,11 @@ const dumpSolution = (puzzle, solution) => {
     let boxesLine = lookupCornerBoxChar(solution, 0, y, CORNER_SW)
     for (const x of xs) {
       const cell = findCell(solution, x, y)
-      valuesLine += cell.value
+      if (cell.isInitialValue) {
+        valuesLine += `${YELLOW}${cell.value}${RESET}`
+      } else {
+        valuesLine += cell.value
+      }
       valuesLine += lookupSideBoxChar(solution, x, y, SIDE_RIGHT)
       boxesLine += lookupSideBoxChar(solution, x, y, SIDE_BOTTOM)
       boxesLine += lookupCornerBoxChar(solution, x, y, CORNER_SE)
@@ -161,8 +169,8 @@ const CORNERS_TABLE = {
 }
 
 const SIDES_TABLE = {
-  'hn': 0x2500,
-  'vn': 0x2502,
+  'hn': 32, // 0x2500
+  'vn': 32, // 0x2502
   'hb': 0x2501,
   'vb': 0x2503
 }
