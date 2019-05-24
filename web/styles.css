@@ -16,12 +16,26 @@
 
 .grid {
   background-color: aliceblue;
-  width: 25%;
+  width: 50%;
 }
 
 .grid-line {
   stroke: black;
-  stroke-width: 1;
+}
+
+.room-border {
+  stroke: black;
+  fill: none;
+}
+
+.initial-value {
+  fill: magenta;
+  font-size: 32px;
+}
+
+.calculated-value {
+  fill: black;
+  font-size: 32px;
 }
 
 @media (max-width: 768px) {
