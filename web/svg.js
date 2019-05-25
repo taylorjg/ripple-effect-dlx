@@ -82,7 +82,9 @@ const drawValue = (gridElement, size, puzzle, coords, value, isInitialValue) => 
     y: TY + coords.y * squareSize + squareSize / 2,
     'dominant-baseline': 'central',
     'text-anchor': 'middle',
-    'class': isInitialValue ? 'initial-value' : 'calculated-value'
+    'class': isInitialValue ? 'initial-value' : 'calculated-value',
+    'data-coords': `${coords.x}-${coords.y}`,
+    'data-is-initial-value': isInitialValue
   })
   const textNode = document.createTextNode(value)
   textElement.appendChild(textNode)
@@ -100,7 +102,13 @@ const drawInitialValues = (gridElement, size, puzzle) => {
     drawValue(gridElement, size, puzzle, cell.coords, cell.initialValue, true))
 }
 
+const clearCalculatedValues = gridElement => {
+  const calculatedValues = gridElement.querySelectorAll('text[data-is-initial-value=false]')
+  calculatedValues.forEach(calculatedValue => gridElement.removeChild(calculatedValue))
+}
+
 const drawCalculatedValues = (gridElement, size, puzzle, solution) => {
+  clearCalculatedValues(gridElement)
   const cellsWithCalculatedValues = solution.filter(cell => !cell.isInitialValue)
   cellsWithCalculatedValues.forEach(cell =>
     drawValue(gridElement, size, puzzle, cell.coords, cell.value, false))

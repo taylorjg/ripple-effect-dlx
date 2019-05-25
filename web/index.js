@@ -3,12 +3,56 @@ import { solve } from '../common/solve'
 import { drawInitialGrid, drawSolution } from './svg'
 
 const solveButton = document.getElementById('solve')
-solveButton.addEventListener('click', () => {
-  const solutions = solve(puzzle)
-  solutions.forEach(solution => {
-    drawSolution(puzzle, solution)
-  })
-})
+const cancelButton = document.getElementById('cancel')
 
-const puzzle = parsePuzzle(SAMPLE_PUZZLE_10x10)
+let puzzle = undefined
+let solving = false
+let queue = undefined
+let intervalId = undefined
+
+const onSearchStep = partialSolution =>
+  queue.push(partialSolution)
+
+const onSolutionFound = solution =>
+  queue.push(solution)
+
+const onInterval = () => {
+  if (queue && queue.length) {
+    const partialSolution = queue.shift()
+    drawSolution(puzzle, partialSolution)
+  } else {
+    stop()
+  }
+}
+
+const onSolve = () => {
+  queue = []
+  intervalId = setInterval(onInterval, 50)
+  solving = true
+  updateButtonState()
+  solve(puzzle, onSearchStep, onSolutionFound)
+}
+
+const stop = () => {
+  clearInterval(intervalId)
+  queue = undefined
+  intervalId = undefined
+  solving = false
+  updateButtonState()
+}
+
+const onCancel = () => {
+  stop()
+}
+
+const updateButtonState = () => {
+  solveButton.disabled = solving
+  cancelButton.disabled = !solving
+}
+
+solveButton.addEventListener('click', onSolve)
+cancelButton.addEventListener('click', onCancel)
+
+updateButtonState()
+puzzle = parsePuzzle(SAMPLE_PUZZLE_10x10)
 drawInitialGrid(puzzle)

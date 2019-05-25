@@ -1,18 +1,23 @@
 require('@babel/polyfill')
 const R = require('ramda')
 // const dlxlib = require('dlxlib')
-// const dlxlib = require('../../dlxlibjs/lib')
 const dlxlib = require('../dlxlib-tmp/index.js')
 
-const solve = puzzle => {
+const solve = (puzzle, onSearchStep, onSolutionFound) => {
+  const _onSearchStep = partialSolution => {
+    if (onSearchStep) {
+      onSearchStep(resolveSolution(rows)(partialSolution))
+    }
+  }
+  const _onSolutionFound = solution => {
+    if (onSolutionFound) {
+      onSolutionFound(resolveSolution(rows)(solution))
+    }
+  }
   const rows = buildRows(puzzle.rooms)
   const matrix = buildMatrix(puzzle, rows)
   const numPrimaryColumns = 2 * puzzle.width * puzzle.height
-  const solutions = dlxlib.solve(matrix, undefined, undefined, undefined, numPrimaryColumns)
-  // const options = {
-  //   numPrimaryColumns
-  // }
-  // const solutions = dlxlib.solve(matrix, options)
+  const solutions = dlxlib.solve(matrix, _onSearchStep, _onSolutionFound, 1, numPrimaryColumns)
   return solutions.map(resolveSolution(rows))
 }
 
