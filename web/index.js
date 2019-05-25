@@ -27,7 +27,7 @@ const onInterval = () => {
 
 const onSolve = () => {
   queue = []
-  intervalId = setInterval(onInterval, 50)
+  intervalId = setInterval(onInterval, 100)
   solving = true
   updateButtonState()
   solve(puzzle, onSearchStep, onSolutionFound)
