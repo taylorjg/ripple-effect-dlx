@@ -13,6 +13,11 @@ This repo contains code to solve Ripple Effect puzzles using Donald E. Knuth's D
 
 ![Console App 10x10 Ripple Effect Puzzle](screenshots/ConsoleApp_10x10.png)
 
+## Web App
+
+* See https://ripple-effect-dlx.herokuapp.com/
+  * _(it may take 10s or so to spin up)_
+
 # Links
 
 * http://www.nikoli.co.jp/en/puzzles/ripple_effect.html

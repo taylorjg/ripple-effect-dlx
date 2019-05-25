@@ -1,6 +1,11 @@
 const R = require('ramda')
 
-// LRUD
+// https://unicode-table.com/en/#box-drawing
+
+// order: left, right, up, down
+// '-' means missing (off the grid)
+// 'n' means normal / light (internal to room)
+// 'b' means bold / heavy (room boundary)
 const CORNERS_TABLE = {
   '-b-b': 0x250F,
   'b--b': 0x2513,
@@ -12,32 +17,34 @@ const CORNERS_TABLE = {
   'bb-b': 0x2533,
   'bbb-': 0x253B,
 
-  '-nbb': 0x2520,
-  'n-bb': 0x2528,
-  'bb-n': 0x252F,
-  'bbn-': 0x2537,
+  '-nbb': 0x2503, // 0x2520,
+  'n-bb': 0x2503, // 0x2528,
+  'bb-n': 0x2501, // 0x252F,
+  'bbn-': 0x2501, // 0x2537,
 
-  'nbbb': 0x254A,
-  'bnbb': 0x2549,
-  'bbnb': 0x2548,
-  'bbbn': 0x2547,
+  'nbbb': 0x2523, // 0x254A,
+  'bnbb': 0x252B, // 0x2549,
+  'bbnb': 0x2533, // 0x2548,
+  'bbbn': 0x253B, // 0x2547,
 
-  'bbnn': 0x253F,
-  'nnbb': 0x2542,
-  'bnbn': 0x2543,
-  'nbnb': 0x2546,
-  'bnnb': 0x2545,
-  'nbbn': 0x2544,
+  'bbnn': 0x2501, // 0x253F,
+  'nnbb': 0x2503, // 0x2542,
+  'bnbn': 0x251B, // 0x2543,
+  'nbnb': 0x250F, // 0x2546,
+  'bnnb': 0x2513, // 0x2545,
+  'nbbn': 0x2517, // 0x2544,
 
   'bbbb': 0x254B,
-  'nnnn': 0x253C
+  'nnnn': 32 // 0x253C
 }
 
+// 'h' means horizontal
+// 'v' means vertical
+// 'n' means normal / light
+// 'b' means bold / heavy
 const SIDES_TABLE = {
-  // 'hn': 0x2500,
-  // 'vn': 0x2502,
-  'hn': 32,
-  'vn': 32,
+  'hn': 32, // 0x2500
+  'vn': 32, // 0x2502
   'hb': 0x2501,
   'vb': 0x2503
 }
