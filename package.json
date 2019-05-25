@@ -1,11 +1,12 @@
 {
   "name": "ripple-effect-dlx",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Web app to solve ripple effect puzzles using dlxlib",
   "scripts": {
     "build": "webpack",
     "start": "node server",
     "eslint": "eslint .",
+    "test": "mocha test",
     "heroku-postbuild": "npm run build"
   },
   "author": "Jonathan Taylor",
@@ -20,9 +21,11 @@
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "babel-loader": "^8.0.5",
+    "chai": "^4.2.0",
     "copy-webpack-plugin": "^5.0.3",
     "eslint": "^5.16.0",
     "html-webpack-plugin": "^3.2.0",
+    "mocha": "^6.1.4",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.3.1"
