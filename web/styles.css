@@ -25,6 +25,7 @@
 
 .room-border {
   stroke: black;
+  stroke-linejoin: round;
   fill: none;
 }
 

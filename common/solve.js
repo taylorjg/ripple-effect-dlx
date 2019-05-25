@@ -1,7 +1,8 @@
 require('@babel/polyfill')
 const R = require('ramda')
 // const dlxlib = require('dlxlib')
-const dlxlib = require('../../dlxlibjs/lib')
+// const dlxlib = require('../../dlxlibjs/lib')
+const dlxlib = require('../dlxlib-tmp/index.js')
 
 const solve = puzzle => {
   const rows = buildRows(puzzle.rooms)
