@@ -44,3 +44,16 @@
     width: 100%;
   }
 }
+
+#controlPanel {
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  #controlPanel {
+    width: 100%;
+  }
+}

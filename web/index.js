@@ -6,18 +6,15 @@ import { drawInitialGrid, drawSolution, clearGrid } from './svg'
 const selectPuzzleElement = document.getElementById('selectPuzzle')
 const solveButtonElement = document.getElementById('solve')
 const cancelButtonElement = document.getElementById('cancel')
+const stepsContainerElement = document.getElementById('stepsContainer')
+const stepCountElement = document.getElementById('stepCount')
 
 let puzzle = undefined
 let solving = false
 let queue = undefined
 let intervalId = undefined
-
-const selectPuzzle = selectedPuzzle => {
-  puzzle = parsePuzzle(selectedPuzzle)
-  clearGrid()
-  drawInitialGrid(puzzle)
-  updateUiState()
-}
+let showStepCount = false
+let stepCount = undefined
 
 const onSelectPuzzle = e => {
   switch (e.target.value) {
@@ -34,22 +31,33 @@ const onSolutionFound = solution =>
 
 const onInterval = () => {
   if (queue && queue.length) {
+    stepCountElement.innerText = stepCount++
     const partialSolution = queue.shift()
     drawSolution(puzzle, partialSolution)
   } else {
-    stop()
+    stopSolving()
   }
 }
 
 const onSolve = () => {
+  startSolving()
+}
+
+const onCancel = () => {
+  stopSolving()
+}
+
+const startSolving = () => {
   queue = []
   intervalId = setInterval(onInterval, 100)
+  showStepCount = true
+  stepCount = 0
   solving = true
   updateUiState()
   solve(puzzle, onSearchStep, onSolutionFound)
 }
 
-const stop = () => {
+const stopSolving = () => {
   clearInterval(intervalId)
   queue = undefined
   intervalId = undefined
@@ -57,14 +65,19 @@ const stop = () => {
   updateUiState()
 }
 
-const onCancel = () => {
-  stop()
+const selectPuzzle = selectedPuzzle => {
+  puzzle = parsePuzzle(selectedPuzzle)
+  clearGrid()
+  drawInitialGrid(puzzle)
+  showStepCount = false
+  updateUiState()
 }
 
 const updateUiState = () => {
   solveButtonElement.disabled = solving
   cancelButtonElement.disabled = !solving
   selectPuzzleElement.disabled = solving
+  stepsContainerElement.style.display = showStepCount ? '' : 'none'
 }
 
 selectPuzzleElement.addEventListener('change', onSelectPuzzle)
