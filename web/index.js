@@ -1,15 +1,30 @@
 import { parsePuzzle } from '../common/parsePuzzle'
-import { SAMPLE_PUZZLE_10x10 } from '../common/samplePuzzles'
+import { SAMPLE_PUZZLE_8x8, SAMPLE_PUZZLE_10x10 } from '../common/samplePuzzles'
 import { solve } from '../common/solve'
-import { drawInitialGrid, drawSolution } from './svg'
+import { drawInitialGrid, drawSolution, clearGrid } from './svg'
 
-const solveButton = document.getElementById('solve')
-const cancelButton = document.getElementById('cancel')
+const selectPuzzleElement = document.getElementById('selectPuzzle')
+const solveButtonElement = document.getElementById('solve')
+const cancelButtonElement = document.getElementById('cancel')
 
 let puzzle = undefined
 let solving = false
 let queue = undefined
 let intervalId = undefined
+
+const selectPuzzle = selectedPuzzle => {
+  puzzle = parsePuzzle(selectedPuzzle)
+  clearGrid()
+  drawInitialGrid(puzzle)
+  updateUiState()
+}
+
+const onSelectPuzzle = e => {
+  switch (e.target.value) {
+    case "8x8": return selectPuzzle(SAMPLE_PUZZLE_8x8)
+    case "10x10": return selectPuzzle(SAMPLE_PUZZLE_10x10)
+  }
+}
 
 const onSearchStep = partialSolution =>
   queue.push(partialSolution)
@@ -30,7 +45,7 @@ const onSolve = () => {
   queue = []
   intervalId = setInterval(onInterval, 100)
   solving = true
-  updateButtonState()
+  updateUiState()
   solve(puzzle, onSearchStep, onSolutionFound)
 }
 
@@ -39,21 +54,21 @@ const stop = () => {
   queue = undefined
   intervalId = undefined
   solving = false
-  updateButtonState()
+  updateUiState()
 }
 
 const onCancel = () => {
   stop()
 }
 
-const updateButtonState = () => {
-  solveButton.disabled = solving
-  cancelButton.disabled = !solving
+const updateUiState = () => {
+  solveButtonElement.disabled = solving
+  cancelButtonElement.disabled = !solving
+  selectPuzzleElement.disabled = solving
 }
 
-solveButton.addEventListener('click', onSolve)
-cancelButton.addEventListener('click', onCancel)
+selectPuzzleElement.addEventListener('change', onSelectPuzzle)
+solveButtonElement.addEventListener('click', onSolve)
+cancelButtonElement.addEventListener('click', onCancel)
 
-updateButtonState()
-puzzle = parsePuzzle(SAMPLE_PUZZLE_10x10)
-drawInitialGrid(puzzle)
+selectPuzzle(SAMPLE_PUZZLE_8x8)

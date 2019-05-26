@@ -129,3 +129,9 @@ export const drawSolution = (puzzle, solution) => {
   const size = gridElement.getBoundingClientRect().width
   drawCalculatedValues(gridElement, size, puzzle, solution)
 }
+
+export const clearGrid = () => {
+  const gridElement = document.getElementById('grid')
+  const children = Array.from(gridElement.children)
+  children.forEach(child => gridElement.removeChild(child))
+}
