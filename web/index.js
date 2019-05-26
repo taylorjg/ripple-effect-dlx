@@ -1,4 +1,5 @@
-import { parsePuzzle, SAMPLE_PUZZLE_10x10 } from '../common/parsePuzzle'
+import { parsePuzzle } from '../common/parsePuzzle'
+import { SAMPLE_PUZZLE_10x10 } from '../common/samplePuzzles'
 import { solve } from '../common/solve'
 import { drawInitialGrid, drawSolution } from './svg'
 

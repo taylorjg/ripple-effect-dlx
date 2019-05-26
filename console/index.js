@@ -1,4 +1,5 @@
-const { parsePuzzle, SAMPLE_PUZZLE_10x10 } = require('../common/parsePuzzle')
+const { parsePuzzle } = require('../common/parsePuzzle')
+const { SAMPLE_PUZZLE_10x10 } = require('../common/samplePuzzles')
 const { solve } = require('../common/solve')
 const { drawSolution } = require('./draw')
 
