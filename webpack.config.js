@@ -8,11 +8,8 @@ const { version } = require('./package.json')
 const distFolder = path.join(__dirname, 'dist')
 
 module.exports = {
-  mode: 'development',
-  entry: [
-    '@babel/polyfill',
-    './web/index.js'
-  ],
+  mode: 'production',
+  entry: './web/index.js',
   output: {
     path: distFolder,
     filename: 'bundle.js'
@@ -27,15 +24,6 @@ module.exports = {
       version
     })
   ],
-  module: {
-    rules: [
-      {
-        test: /\.(js)$/,
-        exclude: /node_modules/,
-        use: 'babel-loader'
-      }
-    ]
-  },
   devtool: 'source-map',
   devServer: {
     contentBase: distFolder

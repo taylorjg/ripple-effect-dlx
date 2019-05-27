@@ -1,160 +1,301 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["dlxlib"] = factory();
-	else
-		root["dlxlib"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
-/******/ })
-/************************************************************************/
-/******/ ({
+(function(g,f){typeof exports==='object'&&typeof module!=='undefined'?f(exports):typeof define==='function'&&define.amd?define(['exports'],f):(g=g||self,f(g.dlxlib={}));}(this,function(exports){'use strict';class DataObject {
 
-/***/ "./node_modules/events/events.js":
-/*!***************************************!*\
-  !*** ./node_modules/events/events.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+  constructor(listHeader, rowIndex) {
+    this.listHeader = listHeader;
+    this.rowIndex = rowIndex;
+    this.up = this;
+    this.down = this;
+    this.left = this;
+    this.right = this;
+    if (listHeader) {
+      listHeader.addDataObject(this);
+    }
+  }
 
-"use strict";
-eval("// Copyright Joyent, Inc. and other Node contributors.\n//\n// Permission is hereby granted, free of charge, to any person obtaining a\n// copy of this software and associated documentation files (the\n// \"Software\"), to deal in the Software without restriction, including\n// without limitation the rights to use, copy, modify, merge, publish,\n// distribute, sublicense, and/or sell copies of the Software, and to permit\n// persons to whom the Software is furnished to do so, subject to the\n// following conditions:\n//\n// The above copyright notice and this permission notice shall be included\n// in all copies or substantial portions of the Software.\n//\n// THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS\n// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\n// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN\n// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,\n// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR\n// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE\n// USE OR OTHER DEALINGS IN THE SOFTWARE.\n\n\n\nvar R = typeof Reflect === 'object' ? Reflect : null\nvar ReflectApply = R && typeof R.apply === 'function'\n  ? R.apply\n  : function ReflectApply(target, receiver, args) {\n    return Function.prototype.apply.call(target, receiver, args);\n  }\n\nvar ReflectOwnKeys\nif (R && typeof R.ownKeys === 'function') {\n  ReflectOwnKeys = R.ownKeys\n} else if (Object.getOwnPropertySymbols) {\n  ReflectOwnKeys = function ReflectOwnKeys(target) {\n    return Object.getOwnPropertyNames(target)\n      .concat(Object.getOwnPropertySymbols(target));\n  };\n} else {\n  ReflectOwnKeys = function ReflectOwnKeys(target) {\n    return Object.getOwnPropertyNames(target);\n  };\n}\n\nfunction ProcessEmitWarning(warning) {\n  if (console && console.warn) console.warn(warning);\n}\n\nvar NumberIsNaN = Number.isNaN || function NumberIsNaN(value) {\n  return value !== value;\n}\n\nfunction EventEmitter() {\n  EventEmitter.init.call(this);\n}\nmodule.exports = EventEmitter;\n\n// Backwards-compat with node 0.10.x\nEventEmitter.EventEmitter = EventEmitter;\n\nEventEmitter.prototype._events = undefined;\nEventEmitter.prototype._eventsCount = 0;\nEventEmitter.prototype._maxListeners = undefined;\n\n// By default EventEmitters will print a warning if more than 10 listeners are\n// added to it. This is a useful default which helps finding memory leaks.\nvar defaultMaxListeners = 10;\n\nObject.defineProperty(EventEmitter, 'defaultMaxListeners', {\n  enumerable: true,\n  get: function() {\n    return defaultMaxListeners;\n  },\n  set: function(arg) {\n    if (typeof arg !== 'number' || arg < 0 || NumberIsNaN(arg)) {\n      throw new RangeError('The value of \"defaultMaxListeners\" is out of range. It must be a non-negative number. Received ' + arg + '.');\n    }\n    defaultMaxListeners = arg;\n  }\n});\n\nEventEmitter.init = function() {\n\n  if (this._events === undefined ||\n      this._events === Object.getPrototypeOf(this)._events) {\n    this._events = Object.create(null);\n    this._eventsCount = 0;\n  }\n\n  this._maxListeners = this._maxListeners || undefined;\n};\n\n// Obviously not all Emitters should be limited to 10. This function allows\n// that to be increased. Set to zero for unlimited.\nEventEmitter.prototype.setMaxListeners = function setMaxListeners(n) {\n  if (typeof n !== 'number' || n < 0 || NumberIsNaN(n)) {\n    throw new RangeError('The value of \"n\" is out of range. It must be a non-negative number. Received ' + n + '.');\n  }\n  this._maxListeners = n;\n  return this;\n};\n\nfunction $getMaxListeners(that) {\n  if (that._maxListeners === undefined)\n    return EventEmitter.defaultMaxListeners;\n  return that._maxListeners;\n}\n\nEventEmitter.prototype.getMaxListeners = function getMaxListeners() {\n  return $getMaxListeners(this);\n};\n\nEventEmitter.prototype.emit = function emit(type) {\n  var args = [];\n  for (var i = 1; i < arguments.length; i++) args.push(arguments[i]);\n  var doError = (type === 'error');\n\n  var events = this._events;\n  if (events !== undefined)\n    doError = (doError && events.error === undefined);\n  else if (!doError)\n    return false;\n\n  // If there is no 'error' event listener then throw.\n  if (doError) {\n    var er;\n    if (args.length > 0)\n      er = args[0];\n    if (er instanceof Error) {\n      // Note: The comments on the `throw` lines are intentional, they show\n      // up in Node's output if this results in an unhandled exception.\n      throw er; // Unhandled 'error' event\n    }\n    // At least give some kind of context to the user\n    var err = new Error('Unhandled error.' + (er ? ' (' + er.message + ')' : ''));\n    err.context = er;\n    throw err; // Unhandled 'error' event\n  }\n\n  var handler = events[type];\n\n  if (handler === undefined)\n    return false;\n\n  if (typeof handler === 'function') {\n    ReflectApply(handler, this, args);\n  } else {\n    var len = handler.length;\n    var listeners = arrayClone(handler, len);\n    for (var i = 0; i < len; ++i)\n      ReflectApply(listeners[i], this, args);\n  }\n\n  return true;\n};\n\nfunction _addListener(target, type, listener, prepend) {\n  var m;\n  var events;\n  var existing;\n\n  if (typeof listener !== 'function') {\n    throw new TypeError('The \"listener\" argument must be of type Function. Received type ' + typeof listener);\n  }\n\n  events = target._events;\n  if (events === undefined) {\n    events = target._events = Object.create(null);\n    target._eventsCount = 0;\n  } else {\n    // To avoid recursion in the case that type === \"newListener\"! Before\n    // adding it to the listeners, first emit \"newListener\".\n    if (events.newListener !== undefined) {\n      target.emit('newListener', type,\n                  listener.listener ? listener.listener : listener);\n\n      // Re-assign `events` because a newListener handler could have caused the\n      // this._events to be assigned to a new object\n      events = target._events;\n    }\n    existing = events[type];\n  }\n\n  if (existing === undefined) {\n    // Optimize the case of one listener. Don't need the extra array object.\n    existing = events[type] = listener;\n    ++target._eventsCount;\n  } else {\n    if (typeof existing === 'function') {\n      // Adding the second element, need to change to array.\n      existing = events[type] =\n        prepend ? [listener, existing] : [existing, listener];\n      // If we've already got an array, just append.\n    } else if (prepend) {\n      existing.unshift(listener);\n    } else {\n      existing.push(listener);\n    }\n\n    // Check for listener leak\n    m = $getMaxListeners(target);\n    if (m > 0 && existing.length > m && !existing.warned) {\n      existing.warned = true;\n      // No error code for this since it is a Warning\n      // eslint-disable-next-line no-restricted-syntax\n      var w = new Error('Possible EventEmitter memory leak detected. ' +\n                          existing.length + ' ' + String(type) + ' listeners ' +\n                          'added. Use emitter.setMaxListeners() to ' +\n                          'increase limit');\n      w.name = 'MaxListenersExceededWarning';\n      w.emitter = target;\n      w.type = type;\n      w.count = existing.length;\n      ProcessEmitWarning(w);\n    }\n  }\n\n  return target;\n}\n\nEventEmitter.prototype.addListener = function addListener(type, listener) {\n  return _addListener(this, type, listener, false);\n};\n\nEventEmitter.prototype.on = EventEmitter.prototype.addListener;\n\nEventEmitter.prototype.prependListener =\n    function prependListener(type, listener) {\n      return _addListener(this, type, listener, true);\n    };\n\nfunction onceWrapper() {\n  var args = [];\n  for (var i = 0; i < arguments.length; i++) args.push(arguments[i]);\n  if (!this.fired) {\n    this.target.removeListener(this.type, this.wrapFn);\n    this.fired = true;\n    ReflectApply(this.listener, this.target, args);\n  }\n}\n\nfunction _onceWrap(target, type, listener) {\n  var state = { fired: false, wrapFn: undefined, target: target, type: type, listener: listener };\n  var wrapped = onceWrapper.bind(state);\n  wrapped.listener = listener;\n  state.wrapFn = wrapped;\n  return wrapped;\n}\n\nEventEmitter.prototype.once = function once(type, listener) {\n  if (typeof listener !== 'function') {\n    throw new TypeError('The \"listener\" argument must be of type Function. Received type ' + typeof listener);\n  }\n  this.on(type, _onceWrap(this, type, listener));\n  return this;\n};\n\nEventEmitter.prototype.prependOnceListener =\n    function prependOnceListener(type, listener) {\n      if (typeof listener !== 'function') {\n        throw new TypeError('The \"listener\" argument must be of type Function. Received type ' + typeof listener);\n      }\n      this.prependListener(type, _onceWrap(this, type, listener));\n      return this;\n    };\n\n// Emits a 'removeListener' event if and only if the listener was removed.\nEventEmitter.prototype.removeListener =\n    function removeListener(type, listener) {\n      var list, events, position, i, originalListener;\n\n      if (typeof listener !== 'function') {\n        throw new TypeError('The \"listener\" argument must be of type Function. Received type ' + typeof listener);\n      }\n\n      events = this._events;\n      if (events === undefined)\n        return this;\n\n      list = events[type];\n      if (list === undefined)\n        return this;\n\n      if (list === listener || list.listener === listener) {\n        if (--this._eventsCount === 0)\n          this._events = Object.create(null);\n        else {\n          delete events[type];\n          if (events.removeListener)\n            this.emit('removeListener', type, list.listener || listener);\n        }\n      } else if (typeof list !== 'function') {\n        position = -1;\n\n        for (i = list.length - 1; i >= 0; i--) {\n          if (list[i] === listener || list[i].listener === listener) {\n            originalListener = list[i].listener;\n            position = i;\n            break;\n          }\n        }\n\n        if (position < 0)\n          return this;\n\n        if (position === 0)\n          list.shift();\n        else {\n          spliceOne(list, position);\n        }\n\n        if (list.length === 1)\n          events[type] = list[0];\n\n        if (events.removeListener !== undefined)\n          this.emit('removeListener', type, originalListener || listener);\n      }\n\n      return this;\n    };\n\nEventEmitter.prototype.off = EventEmitter.prototype.removeListener;\n\nEventEmitter.prototype.removeAllListeners =\n    function removeAllListeners(type) {\n      var listeners, events, i;\n\n      events = this._events;\n      if (events === undefined)\n        return this;\n\n      // not listening for removeListener, no need to emit\n      if (events.removeListener === undefined) {\n        if (arguments.length === 0) {\n          this._events = Object.create(null);\n          this._eventsCount = 0;\n        } else if (events[type] !== undefined) {\n          if (--this._eventsCount === 0)\n            this._events = Object.create(null);\n          else\n            delete events[type];\n        }\n        return this;\n      }\n\n      // emit removeListener for all listeners on all events\n      if (arguments.length === 0) {\n        var keys = Object.keys(events);\n        var key;\n        for (i = 0; i < keys.length; ++i) {\n          key = keys[i];\n          if (key === 'removeListener') continue;\n          this.removeAllListeners(key);\n        }\n        this.removeAllListeners('removeListener');\n        this._events = Object.create(null);\n        this._eventsCount = 0;\n        return this;\n      }\n\n      listeners = events[type];\n\n      if (typeof listeners === 'function') {\n        this.removeListener(type, listeners);\n      } else if (listeners !== undefined) {\n        // LIFO order\n        for (i = listeners.length - 1; i >= 0; i--) {\n          this.removeListener(type, listeners[i]);\n        }\n      }\n\n      return this;\n    };\n\nfunction _listeners(target, type, unwrap) {\n  var events = target._events;\n\n  if (events === undefined)\n    return [];\n\n  var evlistener = events[type];\n  if (evlistener === undefined)\n    return [];\n\n  if (typeof evlistener === 'function')\n    return unwrap ? [evlistener.listener || evlistener] : [evlistener];\n\n  return unwrap ?\n    unwrapListeners(evlistener) : arrayClone(evlistener, evlistener.length);\n}\n\nEventEmitter.prototype.listeners = function listeners(type) {\n  return _listeners(this, type, true);\n};\n\nEventEmitter.prototype.rawListeners = function rawListeners(type) {\n  return _listeners(this, type, false);\n};\n\nEventEmitter.listenerCount = function(emitter, type) {\n  if (typeof emitter.listenerCount === 'function') {\n    return emitter.listenerCount(type);\n  } else {\n    return listenerCount.call(emitter, type);\n  }\n};\n\nEventEmitter.prototype.listenerCount = listenerCount;\nfunction listenerCount(type) {\n  var events = this._events;\n\n  if (events !== undefined) {\n    var evlistener = events[type];\n\n    if (typeof evlistener === 'function') {\n      return 1;\n    } else if (evlistener !== undefined) {\n      return evlistener.length;\n    }\n  }\n\n  return 0;\n}\n\nEventEmitter.prototype.eventNames = function eventNames() {\n  return this._eventsCount > 0 ? ReflectOwnKeys(this._events) : [];\n};\n\nfunction arrayClone(arr, n) {\n  var copy = new Array(n);\n  for (var i = 0; i < n; ++i)\n    copy[i] = arr[i];\n  return copy;\n}\n\nfunction spliceOne(list, index) {\n  for (; index + 1 < list.length; index++)\n    list[index] = list[index + 1];\n  list.pop();\n}\n\nfunction unwrapListeners(arr) {\n  var ret = new Array(arr.length);\n  for (var i = 0; i < ret.length; ++i) {\n    ret[i] = arr[i].listener || arr[i];\n  }\n  return ret;\n}\n\n\n//# sourceURL=webpack://dlxlib/./node_modules/events/events.js?");
+  appendToRow(dataObject) {
+    this.left.right = dataObject;
+    dataObject.right = this;
+    dataObject.left = this.left;
+    this.left = dataObject;
+  }
 
-/***/ }),
+  appendToColumn(dataObject) {
+    this.up.down = dataObject;
+    dataObject.down = this;
+    dataObject.up = this.up;
+    this.up = dataObject;
+  }
 
-/***/ "./src/columnObject.js":
-/*!*****************************!*\
-  !*** ./src/columnObject.js ***!
-  \*****************************/
-/*! exports provided: ColumnObject */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+  unlinkFromColumn() {
+    this.down.up = this.up;
+    this.up.down = this.down;
+  }
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"ColumnObject\", function() { return ColumnObject; });\n/* harmony import */ var _dataObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dataObject */ \"./src/dataObject.js\");\nfunction _typeof(obj) { if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nfunction _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === \"object\" || typeof call === \"function\")) { return call; } return _assertThisInitialized(self); }\n\nfunction _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }\n\nfunction _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function\"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }\n\nfunction _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }\n\n\nvar ColumnObject =\n/*#__PURE__*/\nfunction (_DataObject) {\n  _inherits(ColumnObject, _DataObject);\n\n  function ColumnObject() {\n    var _this;\n\n    _classCallCheck(this, ColumnObject);\n\n    _this = _possibleConstructorReturn(this, _getPrototypeOf(ColumnObject).call(this, null, -1));\n    _this.previousColumnObject = _assertThisInitialized(_this);\n    _this.nextColumnObject = _assertThisInitialized(_this);\n    _this.numberOfRows = 0;\n    return _this;\n  }\n\n  _createClass(ColumnObject, [{\n    key: \"appendColumnHeader\",\n    value: function appendColumnHeader(columnObject) {\n      this.previousColumnObject.nextColumnObject = columnObject;\n      columnObject.nextColumnObject = this;\n      columnObject.previousColumnObject = this.previousColumnObject;\n      this.previousColumnObject = columnObject;\n    }\n  }, {\n    key: \"unlinkColumnHeader\",\n    value: function unlinkColumnHeader() {\n      this.nextColumnObject.previousColumnObject = this.previousColumnObject;\n      this.previousColumnObject.nextColumnObject = this.nextColumnObject;\n    }\n  }, {\n    key: \"relinkColumnHeader\",\n    value: function relinkColumnHeader() {\n      this.nextColumnObject.previousColumnObject = this;\n      this.previousColumnObject.nextColumnObject = this;\n    }\n  }, {\n    key: \"addDataObject\",\n    value: function addDataObject(dataObject) {\n      this.appendToColumn(dataObject);\n      this.numberOfRows++;\n    }\n  }, {\n    key: \"unlinkDataObject\",\n    value: function unlinkDataObject(dataObject) {\n      dataObject.unlinkFromColumn();\n      this.numberOfRows--;\n    }\n  }, {\n    key: \"relinkDataObject\",\n    value: function relinkDataObject(dataObject) {\n      dataObject.relinkIntoColumn();\n      this.numberOfRows++;\n    }\n  }, {\n    key: \"loopNext\",\n    value: function loopNext(fn) {\n      for (var next = this.nextColumnObject; next !== this; next = next.nextColumnObject) {\n        fn(next);\n      }\n    }\n  }]);\n\n  return ColumnObject;\n}(_dataObject__WEBPACK_IMPORTED_MODULE_0__[\"DataObject\"]);\n\n//# sourceURL=webpack://dlxlib/./src/columnObject.js?");
+  relinkIntoColumn() {
+    this.down.up = this;
+    this.up.down = this;
+  }
 
-/***/ }),
+  loopUp(fn) { this.loop(fn, 'up'); }
+  loopDown(fn) { this.loop(fn, 'down'); }
+  loopLeft(fn) { this.loop(fn, 'left'); }
+  loopRight(fn) { this.loop(fn, 'right'); }
 
-/***/ "./src/dataObject.js":
-/*!***************************!*\
-  !*** ./src/dataObject.js ***!
-  \***************************/
-/*! exports provided: DataObject */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+  loop(fn, propName) {
+    for (let next = this[propName]; next !== this; next = next[propName]) {
+      fn(next);
+    }
+  }
+}class ColumnObject extends DataObject {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"DataObject\", function() { return DataObject; });\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nvar DataObject =\n/*#__PURE__*/\nfunction () {\n  function DataObject(listHeader, rowIndex) {\n    _classCallCheck(this, DataObject);\n\n    this.listHeader = listHeader;\n    this.rowIndex = rowIndex;\n    this.up = this;\n    this.down = this;\n    this.left = this;\n    this.right = this;\n\n    if (listHeader) {\n      listHeader.addDataObject(this);\n    }\n  }\n\n  _createClass(DataObject, [{\n    key: \"appendToRow\",\n    value: function appendToRow(dataObject) {\n      this.left.right = dataObject;\n      dataObject.right = this;\n      dataObject.left = this.left;\n      this.left = dataObject;\n    }\n  }, {\n    key: \"appendToColumn\",\n    value: function appendToColumn(dataObject) {\n      this.up.down = dataObject;\n      dataObject.down = this;\n      dataObject.up = this.up;\n      this.up = dataObject;\n    }\n  }, {\n    key: \"unlinkFromColumn\",\n    value: function unlinkFromColumn() {\n      this.down.up = this.up;\n      this.up.down = this.down;\n    }\n  }, {\n    key: \"relinkIntoColumn\",\n    value: function relinkIntoColumn() {\n      this.down.up = this;\n      this.up.down = this;\n    }\n  }, {\n    key: \"loopUp\",\n    value: function loopUp(fn) {\n      this.loop(fn, 'up');\n    }\n  }, {\n    key: \"loopDown\",\n    value: function loopDown(fn) {\n      this.loop(fn, 'down');\n    }\n  }, {\n    key: \"loopLeft\",\n    value: function loopLeft(fn) {\n      this.loop(fn, 'left');\n    }\n  }, {\n    key: \"loopRight\",\n    value: function loopRight(fn) {\n      this.loop(fn, 'right');\n    }\n  }, {\n    key: \"loop\",\n    value: function loop(fn, propName) {\n      for (var next = this[propName]; next !== this; next = next[propName]) {\n        fn(next);\n      }\n    }\n  }]);\n\n  return DataObject;\n}();\n\n//# sourceURL=webpack://dlxlib/./src/dataObject.js?");
+  constructor() {
+    super(null, -1);
+    this.previousColumnObject = this;
+    this.nextColumnObject = this;
+    this.numberOfRows = 0;
+  }
 
-/***/ }),
+  appendColumnHeader(columnObject) {
+    this.previousColumnObject.nextColumnObject = columnObject;
+    columnObject.nextColumnObject = this;
+    columnObject.previousColumnObject = this.previousColumnObject;
+    this.previousColumnObject = columnObject;
+  }
 
-/***/ "./src/dlx.js":
-/*!********************!*\
-  !*** ./src/dlx.js ***!
-  \********************/
-/*! exports provided: solve, solutionGenerator, Dlx */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+  unlinkColumnHeader() {
+    this.nextColumnObject.previousColumnObject = this.previousColumnObject;
+    this.previousColumnObject.nextColumnObject = this.nextColumnObject;
+  }
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"solve\", function() { return solve; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"solutionGenerator\", function() { return solutionGenerator; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"Dlx\", function() { return Dlx; });\n/* harmony import */ var _dataObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dataObject */ \"./src/dataObject.js\");\n/* harmony import */ var _columnObject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./columnObject */ \"./src/columnObject.js\");\nfunction _typeof(obj) { if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\nvar _marked =\n/*#__PURE__*/\nregeneratorRuntime.mark(search);\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nfunction _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === \"object\" || typeof call === \"function\")) { return call; } return _assertThisInitialized(self); }\n\nfunction _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return self; }\n\nfunction _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function\"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }\n\nfunction _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }\n\nvar EventEmitter = __webpack_require__(/*! events */ \"./node_modules/events/events.js\");\n\n\n\n/**\n * @typedef {number[]} PartialSolution The indices of the matrix rows that comprise a partial solution.\n */\n\n/**\n * @typedef {number[]} Solution The indices of the matrix rows that comprise a complete solution.\n */\n\n/**\n * @typedef {*} MatrixValue Matrix values can be of any time. Anything truthy is treated as a 1. Anything falsy is treated as a 0.\n */\n\n/**\n * @typedef {MatrixValue[]} MatrixRow A matrix row is an array of {MatrixValue}.\n */\n\n/**\n * @typedef {MatrixRow[]} Matrix A matrix is an array of {MatrixRow}.\n */\n\n/**\n * Solves the matrix and returns an array of solutions.\n * @param {Matrix} matrix The matrix to be solved.\n * @param {object} [options] Optional options object.\n * @param {number} options.numSolutions The number of solutions to be returned. By default, all solutions are returned.\n * @param {number} options.numPrimaryColumns The number of primary columns. By default, all columns are primary.\n *     Any remaining columns are considered to be secondary columns.\n * @returns {Solution[]} The solutions that were found.\n */\n\nvar solve = function solve(matrix, options) {\n  return new Dlx().solve(matrix, options);\n};\n/**\n * Creates an ES2015 Generator object that can be used to iterate over the solutions to the matrix.\n * @param {Matrix} matrix The matrix to be solved.\n * @param {object} [options] Optional options object.\n * @param {number} options.numPrimaryColumns The number of primary columns. By default, all columns are primary.\n *     Any remaining columns are considered to be secondary columns.\n * @returns {IterableIterator.<number>} An ES2015 Generator object that can be used to iterate over the solutions.\n */\n\nvar solutionGenerator =\n/*#__PURE__*/\nregeneratorRuntime.mark(function solutionGenerator(matrix, options) {\n  return regeneratorRuntime.wrap(function solutionGenerator$(_context) {\n    while (1) {\n      switch (_context.prev = _context.next) {\n        case 0:\n          return _context.delegateYield(new Dlx().solutionGenerator(matrix, options), \"t0\", 1);\n\n        case 1:\n        case \"end\":\n          return _context.stop();\n      }\n    }\n  }, solutionGenerator);\n});\nvar defaultOptions = {\n  numSolutions: Number.MAX_SAFE_INTEGER,\n  numPrimaryColumns: Number.MAX_SAFE_INTEGER\n};\nvar Dlx =\n/*#__PURE__*/\nfunction (_EventEmitter) {\n  _inherits(Dlx, _EventEmitter);\n\n  function Dlx() {\n    _classCallCheck(this, Dlx);\n\n    return _possibleConstructorReturn(this, _getPrototypeOf(Dlx).apply(this, arguments));\n  }\n\n  _createClass(Dlx, [{\n    key: \"solve\",\n\n    /**\n     * Solves the matrix and returns an array of solutions.\n     * @param {Matrix} matrix The matrix to be solved.\n     * @param {object} [options] Optional options object.\n     * @param {number} options.numSolutions The number of solutions to be returned. By default, all solutions are returned.\n     * @param {number} options.numPrimaryColumns The number of primary columns. By default, all columns are primary.\n     *     Any remaining columns are considered to be secondary columns.\n     * @returns {Solution[]} The solutions that were found.\n     */\n    value: function solve(matrix, options) {\n      var actualOptions = Object.assign({}, defaultOptions, options);\n\n      if (!Number.isInteger(actualOptions.numSolutions)) {\n        throw new Error('options.numSolutions must be an integer');\n      }\n\n      if (actualOptions.numSolutions < 0) {\n        throw new Error(\"options.numSolutions can't be negative - don't be silly\");\n      }\n\n      var generator = this.solutionGenerator(matrix, actualOptions);\n      var numSolutions = actualOptions.numSolutions;\n      var solutions = [];\n\n      for (var index = 0; index < numSolutions; index++) {\n        var iteratorResult = generator.next();\n        if (iteratorResult.done) break;\n        solutions.push(iteratorResult.value);\n      }\n\n      return solutions;\n    }\n    /**\n     * Creates an ES2015 Generator object that can be used to iterate over the solutions to the matrix.\n     * @param {Matrix} matrix The matrix to be solved.\n     * @param {object} [options] Optional options object.\n     * @param {number} options.numPrimaryColumns The number of primary columns. By default, all columns are primary.\n     *     Any remaining columns are considered to be secondary columns.\n     * @returns {IterableIterator.<number>} An ES2015 Generator object that can be used to iterate over the solutions.\n     */\n\n  }, {\n    key: \"solutionGenerator\",\n    value:\n    /*#__PURE__*/\n    regeneratorRuntime.mark(function solutionGenerator(matrix, options) {\n      var actualOptions, root, searchState;\n      return regeneratorRuntime.wrap(function solutionGenerator$(_context2) {\n        while (1) {\n          switch (_context2.prev = _context2.next) {\n            case 0:\n              actualOptions = Object.assign({}, defaultOptions, options);\n\n              if (Number.isInteger(actualOptions.numPrimaryColumns)) {\n                _context2.next = 3;\n                break;\n              }\n\n              throw new Error('options.numPrimaryColumns must be an integer');\n\n            case 3:\n              if (!(actualOptions.numPrimaryColumns < 0)) {\n                _context2.next = 5;\n                break;\n              }\n\n              throw new Error(\"options.numPrimaryColumns can't be negative - don't be silly\");\n\n            case 5:\n              root = buildInternalStructure(matrix, actualOptions.numPrimaryColumns);\n              searchState = new SearchState(this, root);\n              return _context2.delegateYield(search(searchState), \"t0\", 8);\n\n            case 8:\n            case \"end\":\n              return _context2.stop();\n          }\n        }\n      }, solutionGenerator, this);\n    })\n  }]);\n\n  return Dlx;\n}(EventEmitter);\n\nvar buildInternalStructure = function buildInternalStructure(matrix, numPrimaryColumns) {\n  numPrimaryColumns = numPrimaryColumns || (matrix[0] ? matrix[0].length : 0);\n  var root = new _columnObject__WEBPACK_IMPORTED_MODULE_1__[\"ColumnObject\"]();\n  var colIndexToListHeader = new Map();\n  matrix.forEach(function (row, rowIndex) {\n    var firstDataObjectInThisRow = null;\n    row.forEach(function (col, colIndex) {\n      if (rowIndex === 0) {\n        var listHeader = new _columnObject__WEBPACK_IMPORTED_MODULE_1__[\"ColumnObject\"]();\n\n        if (colIndex < numPrimaryColumns) {\n          root.appendColumnHeader(listHeader);\n        }\n\n        colIndexToListHeader.set(colIndex, listHeader);\n      }\n\n      if (col) {\n        var _listHeader = colIndexToListHeader.get(colIndex);\n\n        var dataObject = new _dataObject__WEBPACK_IMPORTED_MODULE_0__[\"DataObject\"](_listHeader, rowIndex);\n        if (firstDataObjectInThisRow) firstDataObjectInThisRow.appendToRow(dataObject);else firstDataObjectInThisRow = dataObject;\n      }\n    });\n  });\n  return root;\n};\n\nfunction search(searchState) {\n  var c, r;\n  return regeneratorRuntime.wrap(function search$(_context3) {\n    while (1) {\n      switch (_context3.prev = _context3.next) {\n        case 0:\n          searchState.searchStep();\n\n          if (!searchState.isEmpty()) {\n            _context3.next = 7;\n            break;\n          }\n\n          if (!searchState.currentSolution.length) {\n            _context3.next = 6;\n            break;\n          }\n\n          searchState.solutionFound();\n          _context3.next = 6;\n          return searchState.currentSolution.slice().sort();\n\n        case 6:\n          return _context3.abrupt(\"return\");\n\n        case 7:\n          c = chooseColumnWithFewestRows(searchState);\n          coverColumn(c);\n          r = c.down;\n\n        case 10:\n          if (!(r !== c)) {\n            _context3.next = 19;\n            break;\n          }\n\n          searchState.pushRowIndex(r.rowIndex);\n          r.loopRight(function (j) {\n            return coverColumn(j.listHeader);\n          });\n          return _context3.delegateYield(search(searchState), \"t0\", 14);\n\n        case 14:\n          r.loopLeft(function (j) {\n            return uncoverColumn(j.listHeader);\n          });\n          searchState.popRowIndex();\n\n        case 16:\n          r = r.down;\n          _context3.next = 10;\n          break;\n\n        case 19:\n          uncoverColumn(c);\n\n        case 20:\n        case \"end\":\n          return _context3.stop();\n      }\n    }\n  }, _marked);\n}\n\nvar chooseColumnWithFewestRows = function chooseColumnWithFewestRows(searchState) {\n  var chosenColumn = null;\n  searchState.root.loopNext(function (column) {\n    if (!chosenColumn || column.numberOfRows < chosenColumn.numberOfRows) {\n      chosenColumn = column;\n    }\n  });\n  return chosenColumn;\n};\n\nvar coverColumn = function coverColumn(c) {\n  c.unlinkColumnHeader();\n  c.loopDown(function (i) {\n    return i.loopRight(function (j) {\n      return j.listHeader.unlinkDataObject(j);\n    });\n  });\n};\n\nvar uncoverColumn = function uncoverColumn(c) {\n  c.loopUp(function (i) {\n    return i.loopLeft(function (j) {\n      return j.listHeader.relinkDataObject(j);\n    });\n  });\n  c.relinkColumnHeader();\n};\n\nvar SearchState =\n/*#__PURE__*/\nfunction () {\n  function SearchState(dlx, root) {\n    _classCallCheck(this, SearchState);\n\n    this.dlx = dlx;\n    this.root = root;\n    this.currentSolution = [];\n    this.stepIndex = 0;\n    this.solutionIndex = 0;\n  }\n\n  _createClass(SearchState, [{\n    key: \"isEmpty\",\n    value: function isEmpty() {\n      return this.root.nextColumnObject === this.root;\n    }\n  }, {\n    key: \"pushRowIndex\",\n    value: function pushRowIndex(rowIndex) {\n      this.currentSolution.push(rowIndex);\n    }\n  }, {\n    key: \"popRowIndex\",\n    value: function popRowIndex() {\n      this.currentSolution.pop();\n    }\n  }, {\n    key: \"searchStep\",\n    value: function searchStep() {\n      this.dlx.emit('step', this.currentSolution, this.stepIndex++);\n    }\n  }, {\n    key: \"solutionFound\",\n    value: function solutionFound() {\n      this.dlx.emit('solution', this.currentSolution, this.solutionIndex++);\n    }\n  }]);\n\n  return SearchState;\n}();\n\n//# sourceURL=webpack://dlxlib/./src/dlx.js?");
+  relinkColumnHeader() {
+    this.nextColumnObject.previousColumnObject = this;
+    this.previousColumnObject.nextColumnObject = this;
+  }
 
-/***/ }),
+  addDataObject(dataObject) {
+    this.appendToColumn(dataObject);
+    this.numberOfRows++;
+  }
 
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
-/*! exports provided: solve, solutionGenerator, Dlx */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+  unlinkDataObject(dataObject) {
+    dataObject.unlinkFromColumn();
+    this.numberOfRows--;
+  }
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _dlx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dlx */ \"./src/dlx.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"solve\", function() { return _dlx__WEBPACK_IMPORTED_MODULE_0__[\"solve\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"solutionGenerator\", function() { return _dlx__WEBPACK_IMPORTED_MODULE_0__[\"solutionGenerator\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"Dlx\", function() { return _dlx__WEBPACK_IMPORTED_MODULE_0__[\"Dlx\"]; });\n\n\n\n//# sourceURL=webpack://dlxlib/./src/index.js?");
+  relinkDataObject(dataObject) {
+    dataObject.relinkIntoColumn();
+    this.numberOfRows++;
+  }
 
-/***/ })
+  loopNext(fn) {
+    for (let next = this.nextColumnObject; next !== this; next = next.nextColumnObject) {
+      fn(next);
+    }
+  }
+}const EventEmitter = require('events');
 
-/******/ });
-});
+/**
+ * @typedef {number[]} PartialSolution The indices of the matrix rows that comprise a partial solution.
+ */
+
+/**
+ * @typedef {number[]} Solution The indices of the matrix rows that comprise a complete solution.
+ */
+
+/**
+ * @typedef {*} MatrixValue Matrix values can be of any time. Anything truthy is treated as a 1. Anything falsy is treated as a 0.
+ */
+
+/**
+ * @typedef {MatrixValue[]} MatrixRow A matrix row is an array of {MatrixValue}.
+ */
+
+/**
+ * @typedef {MatrixRow[]} Matrix A matrix is an array of {MatrixRow}.
+ */
+
+/**
+ * Solves the matrix and returns an array of solutions.
+ * @param {Matrix} matrix The matrix to be solved.
+ * @param {object} [options] Optional options object.
+ * @param {number} options.numSolutions The number of solutions to be returned. By default, all solutions are returned.
+ * @param {number} options.numPrimaryColumns The number of primary columns. By default, all columns are primary.
+ *     Any remaining columns are considered to be secondary columns.
+ * @returns {Solution[]} The solutions that were found.
+ */
+const solve = (matrix, options) => new Dlx().solve(matrix, options);
+
+/**
+ * Creates an ES2015 Generator object that can be used to iterate over the solutions to the matrix.
+ * @param {Matrix} matrix The matrix to be solved.
+ * @param {object} [options] Optional options object.
+ * @param {number} options.numPrimaryColumns The number of primary columns. By default, all columns are primary.
+ *     Any remaining columns are considered to be secondary columns.
+ * @returns {IterableIterator.<number>} An ES2015 Generator object that can be used to iterate over the solutions.
+ */
+const solutionGenerator = function* (matrix, options) {
+  yield* new Dlx().solutionGenerator(matrix, options);
+};
+
+const defaultOptions = {
+  numSolutions: Number.MAX_SAFE_INTEGER,
+  numPrimaryColumns: Number.MAX_SAFE_INTEGER
+};
+
+class Dlx extends EventEmitter {
+
+  /**
+   * Solves the matrix and returns an array of solutions.
+   * @param {Matrix} matrix The matrix to be solved.
+   * @param {object} [options] Optional options object.
+   * @param {number} options.numSolutions The number of solutions to be returned. By default, all solutions are returned.
+   * @param {number} options.numPrimaryColumns The number of primary columns. By default, all columns are primary.
+   *     Any remaining columns are considered to be secondary columns.
+   * @returns {Solution[]} The solutions that were found.
+   */
+  solve(matrix, options) {
+    const actualOptions = Object.assign({}, defaultOptions, options);
+    if (!Number.isInteger(actualOptions.numSolutions)) {
+      throw new Error('options.numSolutions must be an integer')
+    }
+    if (actualOptions.numSolutions < 0) {
+      throw new Error(`options.numSolutions can't be negative - don't be silly`)
+    }
+    const generator = this.solutionGenerator(matrix, actualOptions);
+    const numSolutions = actualOptions.numSolutions;
+    const solutions = [];
+    for (let index = 0; index < numSolutions; index++) {
+      const iteratorResult = generator.next();
+      if (iteratorResult.done) break
+      solutions.push(iteratorResult.value);
+    }
+    return solutions
+  }
+
+  /**
+   * Creates an ES2015 Generator object that can be used to iterate over the solutions to the matrix.
+   * @param {Matrix} matrix The matrix to be solved.
+   * @param {object} [options] Optional options object.
+   * @param {number} options.numPrimaryColumns The number of primary columns. By default, all columns are primary.
+   *     Any remaining columns are considered to be secondary columns.
+   * @returns {IterableIterator.<number>} An ES2015 Generator object that can be used to iterate over the solutions.
+   */
+  * solutionGenerator(matrix, options) {
+    const actualOptions = Object.assign({}, defaultOptions, options);
+    if (!Number.isInteger(actualOptions.numPrimaryColumns)) {
+      throw new Error('options.numPrimaryColumns must be an integer')
+    }
+    if (actualOptions.numPrimaryColumns < 0) {
+      throw new Error(`options.numPrimaryColumns can't be negative - don't be silly`)
+    }
+    const root = buildInternalStructure(matrix, actualOptions.numPrimaryColumns);
+    const searchState = new SearchState(this, root);
+    yield* search(searchState);
+  }
+}
+
+const buildInternalStructure = (matrix, numPrimaryColumns) => {
+
+  numPrimaryColumns = numPrimaryColumns || (matrix[0] ? matrix[0].length : 0);
+
+  const root = new ColumnObject();
+  const colIndexToListHeader = new Map();
+
+  matrix.forEach((row, rowIndex) => {
+    let firstDataObjectInThisRow = null;
+    row.forEach((col, colIndex) => {
+      if (rowIndex === 0) {
+        const listHeader = new ColumnObject();
+        if (colIndex < numPrimaryColumns) {
+          root.appendColumnHeader(listHeader);
+        }
+        colIndexToListHeader.set(colIndex, listHeader);
+      }
+      if (col) {
+        const listHeader = colIndexToListHeader.get(colIndex);
+        const dataObject = new DataObject(listHeader, rowIndex);
+        if (firstDataObjectInThisRow)
+          firstDataObjectInThisRow.appendToRow(dataObject);
+        else
+          firstDataObjectInThisRow = dataObject;
+      }
+    });
+  });
+
+  return root
+};
+
+function* search(searchState) {
+
+  searchState.searchStep();
+
+  if (searchState.isEmpty()) {
+    if (searchState.currentSolution.length) {
+      searchState.solutionFound();
+      yield searchState.currentSolution.slice().sort();
+    }
+    return
+  }
+
+  const c = chooseColumnWithFewestRows(searchState);
+  coverColumn(c);
+  for (let r = c.down; r !== c; r = r.down) {
+    searchState.pushRowIndex(r.rowIndex);
+    r.loopRight(j => coverColumn(j.listHeader));
+    yield* search(searchState);
+    r.loopLeft(j => uncoverColumn(j.listHeader));
+    searchState.popRowIndex();
+  }
+  uncoverColumn(c);
+}
+
+const chooseColumnWithFewestRows = searchState => {
+  let chosenColumn = null;
+  searchState.root.loopNext(column => {
+    if (!chosenColumn || column.numberOfRows < chosenColumn.numberOfRows) {
+      chosenColumn = column;
+    }
+  });
+  return chosenColumn
+};
+
+const coverColumn = c => {
+  c.unlinkColumnHeader();
+  c.loopDown(i => i.loopRight(j => j.listHeader.unlinkDataObject(j)));
+};
+
+const uncoverColumn = c => {
+  c.loopUp(i => i.loopLeft(j => j.listHeader.relinkDataObject(j)));
+  c.relinkColumnHeader();
+};
+
+class SearchState {
+
+  constructor(dlx, root) {
+    this.dlx = dlx;
+    this.root = root;
+    this.currentSolution = [];
+    this.stepIndex = 0;
+    this.solutionIndex = 0;
+  }
+
+  isEmpty() {
+    return this.root.nextColumnObject === this.root
+  }
+
+  pushRowIndex(rowIndex) {
+    this.currentSolution.push(rowIndex);
+  }
+
+  popRowIndex() {
+    this.currentSolution.pop();
+  }
+
+  searchStep() {
+    this.dlx.emit('step', this.currentSolution, this.stepIndex++);
+  }
+
+  solutionFound() {
+    this.dlx.emit('solution', this.currentSolution, this.solutionIndex++);
+  }
+}exports.Dlx=Dlx;exports.solutionGenerator=solutionGenerator;exports.solve=solve;Object.defineProperty(exports,'__esModule',{value:true});}));
