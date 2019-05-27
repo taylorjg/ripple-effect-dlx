@@ -1,24 +1,27 @@
 require('@babel/polyfill')
 const R = require('ramda')
 // const dlxlib = require('dlxlib')
-const dlxlib = require('../dlxlib-tmp/index.js')
+const { Dlx } = require('../dlxlib-tmp/index.js')
 
 const solve = (puzzle, onSearchStep, onSolutionFound) => {
-  const _onSearchStep = partialSolution => {
-    if (onSearchStep) {
-      onSearchStep(resolveSolution(rows)(partialSolution))
-    }
-  }
-  const _onSolutionFound = solution => {
-    if (onSolutionFound) {
-      onSolutionFound(resolveSolution(rows)(solution))
-    }
-  }
   const rows = buildRows(puzzle.rooms)
   const matrix = buildMatrix(puzzle, rows)
   const numPrimaryColumns = 2 * puzzle.width * puzzle.height
-  const solutions = dlxlib.solve(matrix, _onSearchStep, _onSolutionFound, 1, numPrimaryColumns)
-  return solutions.map(resolveSolution(rows))
+  const options = {
+    numSolutions: 1,
+    numPrimaryColumns
+  }
+  const dlx = new Dlx()
+  if (onSearchStep) {
+    dlx.on('step', (rowIndices, stepIndex) =>
+      onSearchStep(resolveRowIndices(rows)(rowIndices), stepIndex))
+  }
+  if (onSolutionFound) {
+    dlx.on('solution', (rowIndices, solutionIndex) =>
+      onSolutionFound(resolveRowIndices(rows)(rowIndices), solutionIndex))
+  }
+  const solutions = dlx.solve(matrix, options)
+  return solutions.map(resolveRowIndices(rows))
 }
 
 const buildRows = rooms => R.chain(buildRowsForRoom, rooms)
@@ -122,8 +125,8 @@ const calculateRippleIndices = (puzzle, row, direction) => {
     .map(cell => cell.y * puzzle.width + cell.x)
 }
 
-const resolveSolution = rows => solution =>
-  solution.map(rowIndex => rows[rowIndex])
+const resolveRowIndices = rows => rowIndices =>
+  rowIndices.map(rowIndex => rows[rowIndex])
 
 module.exports = {
   solve
