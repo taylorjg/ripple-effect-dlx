@@ -7,12 +7,12 @@ const solve = (puzzle, onSearchStep, onSolutionFound) => {
   const matrix = buildMatrix(puzzle, rows)
   const dlx = new Dlx()
   if (onSearchStep) {
-    dlx.on('step', (rowIndices, stepIndex) =>
-      onSearchStep(resolveRowIndices(rows)(rowIndices), stepIndex))
+    dlx.on('step', e =>
+      onSearchStep(resolveRowIndices(rows)(e.partialSolution), e.stepIndex))
   }
   if (onSolutionFound) {
-    dlx.on('solution', (rowIndices, solutionIndex) =>
-      onSolutionFound(resolveRowIndices(rows)(rowIndices), solutionIndex))
+    dlx.on('solution', e =>
+      onSolutionFound(resolveRowIndices(rows)(e.solution), e.solutionIndex))
   }
   const numPrimaryColumns = 2 * puzzle.width * puzzle.height
   const options = { numPrimaryColumns }
