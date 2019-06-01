@@ -1,6 +1,5 @@
 const R = require('ramda')
-// const dlxlib = require('dlxlib')
-const { Dlx } = require('../dlxlib-tmp/index.js')
+const { Dlx } = require('dlxlib')
 
 const solve = (puzzle, onSearchStep, onSolutionFound) => {
   const rows = buildRows(puzzle.rooms)

@@ -1,6 +1,6 @@
 {
   "name": "ripple-effect-dlx",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Web app to solve ripple effect puzzles using dlxlib",
   "scripts": {
     "build": "webpack",
@@ -12,6 +12,7 @@
   "author": "Jonathan Taylor",
   "license": "MIT",
   "dependencies": {
+    "dlxlib": "^2.0.0-alpha.1",
     "express": "^4.16.4",
     "ramda": "^0.26.1"
   },
