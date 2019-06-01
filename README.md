@@ -116,10 +116,8 @@ For example, an 8x8 puzzle with a largest room size of 5 will result in a DLX ma
 
 # TODO
 
-* Stop using local copy of dlxlib
-  * Will do so when I publish dlxlib 2.0.0
-    * Main new feature is support for secondary columns which are
-required in order to solve this type of puzzle
+* ~~Stop using local copy of dlxlib~~
+  * ~~Now using dlxlib@next which has support for secondary columns~~
 * Add checkbox re whether to animate the solution
 * Add slider to control speed of animation
 * Add more puzzles
