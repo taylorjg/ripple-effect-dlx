@@ -133,8 +133,7 @@ For example, an 8x8 puzzle with a largest room size of 5 will result in a DLX ma
 
 ## Web App
 
-* See https://ripple-effect-dlx.herokuapp.com/
-  * _(it may take 10s or so to spin up)_
+Try it out - it is deployed [here](https://taylorjg.github.io/ripple-effect-dlx/).
 
 # Links
 

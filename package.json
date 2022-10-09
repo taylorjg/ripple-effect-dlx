@@ -4,16 +4,16 @@
   "description": "Web app to solve ripple effect puzzles using dlxlib",
   "scripts": {
     "build": "webpack",
-    "start": "node server",
     "eslint": "eslint .",
     "test": "mocha test",
-    "heroku-postbuild": "npm run build"
+    "deploy": "npm run build && gh-pages -d build"
   },
   "author": "Jonathan Taylor",
   "license": "MIT",
   "dependencies": {
     "dlxlib": "^2.0.0-alpha.1",
     "express": "^4.16.4",
+    "gh-pages": "^4.0.0",
     "ramda": "^0.26.1"
   },
   "devDependencies": {

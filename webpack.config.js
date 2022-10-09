@@ -5,13 +5,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { version } = require('./package.json')
 
-const distFolder = path.join(__dirname, 'dist')
+const BUILD_FOLDER = path.join(__dirname, 'build')
 
 module.exports = {
   mode: 'production',
   entry: './web/index.js',
   output: {
-    path: distFolder,
+    path: BUILD_FOLDER,
     filename: 'bundle.js'
   },
   plugins: [
@@ -26,6 +26,6 @@ module.exports = {
   ],
   devtool: 'source-map',
   devServer: {
-    contentBase: distFolder
+    contentBase: BUILD_FOLDER
   }
 }
